@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import styles from "./MainNavigation.module.css";
+import { NavLink } from "react-router-dom";
 
 const MainNavigation = () => {
   return (
@@ -17,15 +18,21 @@ const MainNavigation = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className={`me-auto ${styles["nav-links"]}`}>
             <Nav.Link className={`${styles["nav-link-element"]}`}>
-              Storehouses
+              <NavLink className={`${styles["text"]}`} to="/auth">
+                Storehouses
+              </NavLink>
             </Nav.Link>
             <Nav.Link className={`${styles["nav-link-element"]}`}>
-              Pricing
+              <NavLink className={`${styles["text"]}`} to="/auth">
+                Pricing
+              </NavLink>
             </Nav.Link>
           </Nav>
           <Nav className={`${styles["nav-links"]}`}>
             <Nav.Link className={`${styles["nav-link-element"]}`}>
-              Login/Signup
+              <NavLink className={`${styles["text"]}`} to="/auth">
+                Login/Signup
+              </NavLink>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
