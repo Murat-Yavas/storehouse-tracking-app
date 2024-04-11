@@ -1,0 +1,16 @@
+.main-navigation {
+  height: 56px;
+}
+
+.nav-links {
+  height: 40px;
+}
+
+.nav-link-element {
+  margin: 0 1rem;
+}
+
+.nav-link-element:hover {
+  border-bottom: 3px solid green;
+  transition: 0.1s;
+}
