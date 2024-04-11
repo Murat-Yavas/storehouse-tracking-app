@@ -1,0 +1,13 @@
+.footer {
+  padding: 2rem;
+  background-color: rgb(244, 244, 244);
+}
+
+.footer-element {
+  color: green;
+}
+
+.footer-element:hover {
+  cursor: pointer;
+  color: rgb(39, 182, 182);
+}

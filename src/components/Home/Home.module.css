@@ -30,3 +30,14 @@
 .app-info-image {
   width: 100%;
 }
+
+.feature-cards {
+  margin: 4rem 0;
+}
+
+.icon {
+  color: green;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+}
