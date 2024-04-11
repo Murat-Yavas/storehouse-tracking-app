@@ -1,6 +1,7 @@
 .footer {
   padding: 2rem;
   background-color: rgb(244, 244, 244);
+  text-align: center;
 }
 
 .footer-element {
@@ -10,4 +11,5 @@
 .footer-element:hover {
   cursor: pointer;
   color: rgb(39, 182, 182);
+  transition: 0.2s;
 }

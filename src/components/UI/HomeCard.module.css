@@ -1,5 +1,4 @@
 .home-card:hover {
-  cursor: pointer;
   background-color: rgb(244, 244, 244);
   transition: 0.2s;
 }

@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className={` ${styles.footer}`}>
       <div className="row">
-        <div className={`col-4 ${styles["footer-section"]}`}>
+        <div className={`col-12 col-md-4 ${styles["footer-section"]}`}>
           <h5>Support</h5>
           <div>
             <p className={`${styles["footer-element"]}`}>FAQ</p>
@@ -12,7 +12,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className={`col-4 ${styles["footer-section"]}`}>
+        <div className={`col-12 col-md-4 ${styles["footer-section"]}`}>
           <h5>Contact</h5>
           <div>
             <p className={`${styles["footer-element"]}`}>
@@ -24,7 +24,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className={`col-4 ${styles["footer-section"]}`}>
+        <div className={`col-12 col-md-4 ${styles["footer-section"]}`}>
           <h5>Career</h5>
           <div>
             <p className={`${styles["footer-element"]}`}>

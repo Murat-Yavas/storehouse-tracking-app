@@ -5,6 +5,7 @@ import { IoDocumentText } from "react-icons/io5";
 import { TbBuildingWarehouse } from "react-icons/tb";
 import { MdOutlineWarehouse } from "react-icons/md";
 import { FaMoneyBillWave } from "react-icons/fa6";
+import Footer from "../Footer/Footer";
 
 const Home = () => {
   return (
@@ -63,6 +64,7 @@ const Home = () => {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -17,23 +17,25 @@ const MainNavigation = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className={`me-auto ${styles["nav-links"]}`}>
-            <Nav.Link className={`${styles["nav-link-element"]}`}>
-              <NavLink className={`${styles["text"]}`} to="/auth">
-                Storehouses
-              </NavLink>
-            </Nav.Link>
-            <Nav.Link className={`${styles["nav-link-element"]}`}>
-              <NavLink className={`${styles["text"]}`} to="/auth">
-                Pricing
-              </NavLink>
-            </Nav.Link>
-          </Nav>
-          <Nav className={`${styles["nav-links"]}`}>
-            <Nav.Link className={`${styles["nav-link-element"]}`}>
-              <NavLink className={`${styles["text"]}`} to="/auth">
-                Login/Signup
-              </NavLink>
-            </Nav.Link>
+            <div className="d-flex">
+              <Nav.Link className={`${styles["nav-link-element"]}`}>
+                <NavLink className={`${styles["text"]}`} to="/">
+                  Storehouses
+                </NavLink>
+              </Nav.Link>
+              <Nav.Link className={`${styles["nav-link-element"]}`}>
+                <NavLink className={`${styles["text"]}`} to="/">
+                  Pricing
+                </NavLink>
+              </Nav.Link>
+            </div>
+            <div>
+              <Nav.Link className={` ${styles["nav-link-element"]}`}>
+                <NavLink className={`${styles["text"]}`} to="/auth">
+                  Login/Signup
+                </NavLink>
+              </Nav.Link>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>
