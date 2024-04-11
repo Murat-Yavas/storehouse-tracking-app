@@ -23,16 +23,10 @@ const MainNavigation = () => {
               Pricing
             </Nav.Link>
           </Nav>
-          <Nav>
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
+          <Nav className={`${styles["nav-links"]}`}>
+            <Nav.Link className={`${styles["nav-link-element"]}`}>
+              Login/Signup
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
