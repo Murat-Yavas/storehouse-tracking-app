@@ -19,19 +19,19 @@ const MainNavigation = () => {
           <Nav className={`me-auto ${styles["nav-links"]}`}>
             <div className="d-flex">
               <Nav.Link className={`${styles["nav-link-element"]}`}>
-                <NavLink className={`${styles["text"]}`} to="/storehouses">
+                <NavLink className={`${styles.text}`} to="/storehouses">
                   Storehouses
                 </NavLink>
               </Nav.Link>
               <Nav.Link className={`${styles["nav-link-element"]}`}>
-                <NavLink className={`${styles["text"]}`} to="/">
+                <NavLink className={`${styles.text}`} to="/">
                   Pricing
                 </NavLink>
               </Nav.Link>
             </div>
             <div>
               <Nav.Link className={` ${styles["nav-link-element"]}`}>
-                <NavLink className={`${styles["text"]}`} to="/auth">
+                <NavLink className={`${styles.text}`} to="/auth">
                   Login/Signup
                 </NavLink>
               </Nav.Link>
