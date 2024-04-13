@@ -50,8 +50,6 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
     e.preventDefault();
   };
 
-  // console.log(storehouseToUpdate[0]);
-
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">

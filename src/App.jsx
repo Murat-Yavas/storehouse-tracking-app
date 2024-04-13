@@ -6,6 +6,7 @@ import AuthPage from "./pages/AuthPage";
 import StorehousePage from "./pages/StorehousePage";
 import ProductPage from "./pages/ProductPage";
 import StorehouseFormPage from "./pages/StorehouseFormPage";
+import ProductFormPage from "./pages/ProductFormPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,6 +19,10 @@ function App() {
         { path: "/storehouses", element: <StorehousePage /> },
         { path: "/storehouses/:storehouseId", element: <StorehouseFormPage /> },
         { path: "/storehouses/:id/products", element: <ProductPage /> },
+        {
+          path: "/storehouses/:id/products/:productId",
+          element: <ProductFormPage />,
+        },
       ],
     },
   ]);
