@@ -7,6 +7,7 @@ import {
   updateOneProduct,
 } from "../../redux/api/productApiCall";
 import { useParams } from "react-router-dom";
+import styles from "./ProductForm.module.css";
 
 const ProductForm = ({ products, productById }) => {
   //const { products, productById } = useSelector((state) => state.product);
@@ -47,7 +48,7 @@ const ProductForm = ({ products, productById }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className={`${styles["product-form"]}`} onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Product Name</Form.Label>
         <Form.Control
@@ -82,6 +83,7 @@ const ProductForm = ({ products, productById }) => {
         onClick={() => handleUpdate(productById.id)}
         variant="success"
         type="submit"
+        className={`${styles["product-button"]}`}
       >
         Update
       </Button>
@@ -89,7 +91,6 @@ const ProductForm = ({ products, productById }) => {
   );
 };
 
-// export default ProductForm;
 const mapStateToProps = (state) => {
   return {
     products: state.product.products,

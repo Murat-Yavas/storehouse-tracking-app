@@ -7,6 +7,7 @@ import {
   fetchOneStorehouse,
   updateOneStorehouse,
 } from "../../redux/api/storehouseApiCall";
+import styles from "./StorehouseForm.module.css";
 
 const StorehouseForm = ({ storehouses, singleStorehouse }) => {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className={`${styles["storehouse-form"]}`} onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Storehouse Name</Form.Label>
         <Form.Control
@@ -83,9 +84,10 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
       </Form.Group>
 
       <Button
-        variant="primary"
+        variant="success"
         type="submit"
         onClick={() => handleUpdate(storehouseToUpdate[0].id)}
+        className={`${styles["storehouse-button"]}`}
       >
         Update
       </Button>
