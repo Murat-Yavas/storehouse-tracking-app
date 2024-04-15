@@ -65,7 +65,10 @@ const Product = () => {
                   <td>
                     <div className="d-flex align-items-center">
                       <div className="ms-3">
-                        <p className="fw-bold mb-1">{product.productName}</p>
+                        <p className="fw-bold mb-1">
+                          {product.productName.charAt(0).toUpperCase() +
+                            product.productName.slice(1)}
+                        </p>
                       </div>
                     </div>
                   </td>

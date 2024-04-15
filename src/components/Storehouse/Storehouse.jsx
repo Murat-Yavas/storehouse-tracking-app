@@ -16,7 +16,6 @@ const Storehouse = () => {
     (state) => state.storehouse
   );
   const dispatch = useDispatch();
-  console.log(storehouses);
 
   useEffect(() => {
     fetchAllStorehouses(dispatch);
@@ -53,7 +52,7 @@ const Storehouse = () => {
               >
                 <Card.Body>
                   <Card.Title className="text-center">
-                    Storehouse - {house.name}
+                    {house.name.charAt(0).toUpperCase() + house.name.slice(1)}
                   </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
                     Location - {house.address}
