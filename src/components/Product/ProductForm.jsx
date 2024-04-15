@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch, useSelector, connect } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import {
   fetchOneProduct,
   updateOneProduct,
 } from "../../redux/api/productApiCall";
 import { useParams } from "react-router-dom";
 import styles from "./ProductForm.module.css";
+import { useNavigate } from "react-router-dom";
 
 const ProductForm = ({ products, productById }) => {
-  //const { products, productById } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const param = useParams();
   const productToUpdate = products.filter((p) => p.id === +param.productId);
@@ -18,6 +18,8 @@ const ProductForm = ({ products, productById }) => {
   const [productName, setProductName] = useState(productById?.productName);
   const [quantity, setQuantity] = useState(productById?.quantity);
   const [entryPrice, setEntryPrice] = useState(productById?.entryPrice);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchOneProduct(dispatch, +param.productId);
@@ -31,8 +33,6 @@ const ProductForm = ({ products, productById }) => {
     }
   }, [productById]);
 
-  console.log(productById);
-
   const handleUpdate = (id) => {
     const newProduct = {
       ...productToUpdate[0],
@@ -41,6 +41,7 @@ const ProductForm = ({ products, productById }) => {
       entryPrice,
     };
     updateOneProduct(id, { ...newProduct, storehouseId: +param.id });
+    navigate(`/storehouses/${param.id}/products`);
   };
 
   const handleSubmit = (e) => {

@@ -1,10 +1,10 @@
 .storehouse-section {
   margin: 4rem 2rem 0 2rem;
-  display: flex;
 }
 
 .storehouse-card {
-  margin: auto;
+  margin: 2rem auto;
+  max-width: 25rem !important;
 }
 
 .storehouse-card:hover {
@@ -14,9 +14,24 @@
 }
 
 .card-buttons {
+  text-decoration: none;
   display: flex;
   justify-content: space-between;
-  text-decoration: none;
+  align-items: center;
+}
+
+.card-buttons a {
+  width: 100%;
+  padding: 0;
+}
+
+.card-buttons button {
+  width: 100%;
+  padding: 0;
+}
+
+.add-button {
+  width: 15%;
 }
 
 @media screen and (max-width: 768px) {
@@ -26,5 +41,25 @@
 
   .storehouse-card {
     margin: 1rem auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .card-buttons a {
+    width: fit-content;
+  }
+
+  .card-buttons button {
+    width: fit-content;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .add-button-container {
+    display: flex;
+  }
+
+  .add-button {
+    justify-content: center;
   }
 }

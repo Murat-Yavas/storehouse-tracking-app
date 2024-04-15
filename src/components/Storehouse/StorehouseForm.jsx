@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { Navigate, useParams } from "react-router-dom";
+import { connect, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import {
   fetchOneStorehouse,
   updateOneStorehouse,
 } from "../../redux/api/storehouseApiCall";
 import styles from "./StorehouseForm.module.css";
+import { useNavigate } from "react-router-dom";
 
 const StorehouseForm = ({ storehouses, singleStorehouse }) => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
   const storehouseToUpdate = storehouses.filter(
     (house) => house.id === +param.storehouseId
   );
+  const navigate = useNavigate();
 
   const [name, setName] = useState(storehouseToUpdate[0]?.name);
   const [address, setAddress] = useState(storehouseToUpdate[0]?.address);
@@ -44,7 +46,8 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
       storageCapacity: +capacity,
     };
     updateOneStorehouse(storehouseId, newStorehouse);
-    // Navigate("/storehouses");
+
+    navigate("/storehouses");
   };
 
   const handleSubmit = (e) => {

@@ -39,6 +39,22 @@ export const updateOneStorehouse = async (storehouseId, body) => {
   }
 };
 
+export const addOneStorehouse = async (dispatch, body) => {
+  try {
+    const response = await fetch("http://localhost:8080/storehouses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const result = await response.json();
+    dispatch(storehouseActions.createOneStorehouse(result));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const deleteOneStorehouse = async (dispatch, storehouseId) => {
   try {
     const response = await fetch(

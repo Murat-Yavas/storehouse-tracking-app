@@ -23,7 +23,6 @@ export const fetchOneProduct = async (dispatch, id) => {
 };
 
 export const updateOneProduct = async (id, body) => {
-  console.log(body);
   try {
     const response = await fetch(`http://localhost:8080/products/${id}`, {
       method: "PUT",
@@ -32,6 +31,22 @@ export const updateOneProduct = async (id, body) => {
       },
       body: JSON.stringify(body),
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addOneProduct = async (dispatch, body) => {
+  try {
+    const response = await fetch("http://localhost:8080/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const result = await response.json();
+    dispatch(productActions.createOneProduct(result));
   } catch (error) {
     console.log(error);
   }

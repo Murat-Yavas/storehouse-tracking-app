@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { storehouses: [], singleStorehouse: {} };
+const initialState = {
+  storehouses: [],
+  singleStorehouse: {},
+  showStorehouseModal: false,
+};
 
 const storehouseSlice = createSlice({
   name: "storehouse",
@@ -19,6 +23,17 @@ const storehouseSlice = createSlice({
 
     getOneStorehouse: (state, action) => {
       state.singleStorehouse = action.payload;
+    },
+
+    createOneStorehouse: (state, action) => {
+      state.storehouses.push(action.payload);
+    },
+
+    toggleShowStorehouseModal: (state) => {
+      state.showStorehouseModal = true;
+    },
+    toggleHideStorehouseModal: (state) => {
+      state.showStorehouseModal = false;
     },
   },
 });

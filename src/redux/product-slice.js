@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { products: [], productById: {} };
+const initialState = { products: [], productById: {}, showProductModal: false };
 
 const productSlice = createSlice({
   name: "product",
@@ -20,6 +20,18 @@ const productSlice = createSlice({
       );
       console.log(newProducts);
       state.products = newProducts;
+    },
+
+    createOneProduct: (state, action) => {
+      state.products.push(action.payload);
+    },
+
+    toggleShowProductModal: (state) => {
+      state.showProductModal = true;
+    },
+
+    toggleHideProductModal: (state) => {
+      state.showProductModal = false;
     },
   },
 });
