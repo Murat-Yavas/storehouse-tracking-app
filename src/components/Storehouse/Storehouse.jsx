@@ -12,8 +12,11 @@ import { storehouseActions } from "../../redux/storehouse-slice";
 import StorehouseModal from "./StorehouseModal";
 
 const Storehouse = () => {
-  const { storehouses } = useSelector((state) => state.storehouse);
+  const { storehouses, isStorehouseLoading, isStorehouseError } = useSelector(
+    (state) => state.storehouse
+  );
   const dispatch = useDispatch();
+  console.log(storehouses);
 
   useEffect(() => {
     fetchAllStorehouses(dispatch);
@@ -27,69 +30,75 @@ const Storehouse = () => {
     dispatch(storehouseActions.toggleShowStorehouseModal());
   };
 
-  return (
-    <>
-      <div
-        className={`my-3 d-flex justify-content-center justify-content-lg-start`}
-      >
-        <Button onClick={handleAddClick} variant="success">
-          Add Storehouse
-        </Button>
-      </div>
-      <div className={`row mt-2  ${styles["storehouse-section"]}`}>
-        {storehouses.map((house) => (
-          <Card
-            className={`col-12 col-md-6 col-xl-4  ${styles["storehouse-card"]}`}
-            key={house.id}
-          >
-            <Card.Body>
-              <Card.Title className="text-center">
-                Storehouse - {house.name}
-              </Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                Location - {house.address}
-              </Card.Subtitle>
-              <Card.Text>
-                Storage Capacity - {house.storageCapacity} piece
-              </Card.Text>
-              <Card.Text>
-                In Use - {house?.product?.length || 0}/{house.storageCapacity}{" "}
-                piece
-              </Card.Text>
+  if (isStorehouseError) return <div>Something went wrong!</div>;
+  else if (isStorehouseLoading) return <div>Loading...</div>;
+  else
+    return (
+      <>
+        <div
+          className={`my-3 d-flex justify-content-center justify-content-lg-start`}
+        >
+          <Button onClick={handleAddClick} variant="success">
+            Add Storehouse
+          </Button>
+        </div>
+        {storehouses.length === 0 ? (
+          <h1 className="mt-4 text-center">No storehouses yet</h1>
+        ) : (
+          <div className={`row mt-2  ${styles["storehouse-section"]}`}>
+            {storehouses.map((house) => (
+              <Card
+                className={`col-12 col-md-6 col-xl-4  ${styles["storehouse-card"]}`}
+                key={house.id}
+              >
+                <Card.Body>
+                  <Card.Title className="text-center">
+                    Storehouse - {house.name}
+                  </Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Location - {house.address}
+                  </Card.Subtitle>
+                  <Card.Text>
+                    Storage Capacity - {house.storageCapacity} piece
+                  </Card.Text>
+                  <Card.Text>
+                    In Use - {house?.product?.length || 0}/
+                    {house.storageCapacity} piece
+                  </Card.Text>
 
-              <div className="container">
-                <div className={`row ${styles["card-buttons"]}`}>
-                  <Button
-                    variant="outline-success"
-                    onClick={() => handleDelete(house.id)}
-                    className="px-3"
-                  >
-                    Delete
-                  </Button>
+                  <div className="container">
+                    <div className={`row ${styles["card-buttons"]}`}>
+                      <Button
+                        variant="outline-success"
+                        onClick={() => handleDelete(house.id)}
+                        className="px-3"
+                      >
+                        Delete
+                      </Button>
 
-                  <NavLink
-                    className="btn btn-outline-success px-3 my-2 my-md-0"
-                    to={`/storehouses/${house.id}`}
-                  >
-                    Update
-                  </NavLink>
+                      <NavLink
+                        className="btn btn-outline-success px-3 my-2 my-md-0"
+                        to={`/storehouses/${house.id}`}
+                      >
+                        Update
+                      </NavLink>
 
-                  <NavLink
-                    className="btn btn-outline-success px-3"
-                    to={`/storehouses/${house.id}/products`}
-                  >
-                    See Products
-                  </NavLink>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        ))}
-
+                      <NavLink
+                        className="btn btn-outline-success px-3"
+                        to={`/storehouses/${house.id}/products`}
+                      >
+                        See Products
+                      </NavLink>
+                    </div>
+                  </div>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        )}
         <StorehouseModal />
-      </div>
-    </>
-  );
+      </>
+    );
 };
 
 export default Storehouse;

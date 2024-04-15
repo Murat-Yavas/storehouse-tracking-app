@@ -48,7 +48,7 @@ const ProductModal = () => {
                 <Form.Control
                   onChange={(e) => setProductName(e.target.value)}
                   type="text"
-                  placeholder="Enter storehouse name"
+                  placeholder="Enter product name"
                 />
               </Form.Group>
 
@@ -57,7 +57,7 @@ const ProductModal = () => {
                 <Form.Control
                   onChange={(e) => setEntryPrice(e.target.value)}
                   type="number"
-                  placeholder="Enter storage capacity"
+                  placeholder="Enter entry price"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicQuantity">
@@ -65,7 +65,7 @@ const ProductModal = () => {
                 <Form.Control
                   onChange={(e) => setQuantity(e.target.value)}
                   type="number"
-                  placeholder="Enter address"
+                  placeholder="Enter quantity"
                 />
               </Form.Group>
 

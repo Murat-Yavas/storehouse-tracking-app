@@ -1,14 +1,18 @@
 import { productActions } from "../product-slice";
 
 export const fetchProductsByStorehouse = async (dispatch, id) => {
+  dispatch(productActions.toggleIsLoading(true));
   try {
     const response = await fetch(
       `http://localhost:8080/products/storehouse/${id}`
     );
     const result = await response.json();
     dispatch(productActions.getProductsByStorehouse(result));
+    dispatch(productActions.toggleIsLoading(false));
+    dispatch(productActions.toggleIsError(false));
   } catch (error) {
-    console.log(error);
+    dispatch(productActions.toggleIsLoading(false));
+    dispatch(productActions.toggleIsError(true));
   }
 };
 

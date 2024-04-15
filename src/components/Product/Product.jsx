@@ -13,7 +13,9 @@ import { productActions } from "../../redux/product-slice";
 import ProductModal from "./ProductModal";
 
 const Product = () => {
-  const { products } = useSelector((state) => state.product);
+  const { products, isProductLoading, isProductError } = useSelector(
+    (state) => state.product
+  );
   const dispatch = useDispatch();
   const param = useParams();
 
@@ -29,57 +31,77 @@ const Product = () => {
     dispatch(productActions.toggleShowProductModal());
   };
 
-  return (
-    <div>
+  if (isProductError) return <div>Something went wrong!</div>;
+  else if (isProductLoading) return <div>Loading...</div>;
+  else
+    return (
       <div>
-        <Button
-          onClick={handleAddClick}
-          className={`${styles["add-button"]}`}
-          variant="success"
-        >
-          Add Product
-        </Button>
+        <div>
+          <Button
+            onClick={handleAddClick}
+            className={`${styles["add-button"]}`}
+            variant="success"
+          >
+            Add Product
+          </Button>
+        </div>
+
+        {products.length === 0 ? (
+          <h1 className="mt-4 text-center">No products yet</h1>
+        ) : (
+          <table className="table align-middle my-4 bg-white">
+            <thead className="bg-light">
+              <tr className="text-center">
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Entry Price</th>
+                <th>Entry Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            {products.map((product) => (
+              <tbody key={product.id} className="text-center">
+                <tr>
+                  <td>
+                    <div className="d-flex align-items-center">
+                      <div className="ms-3">
+                        <p className="fw-bold mb-1">{product.productName}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p className="fw-normal mb-1">{product.quantity}</p>
+                  </td>
+                  <td>{product.entryPrice} &#36;</td>
+                  <td>{product.entryDate}</td>
+                  <td>
+                    <div>
+                      <button
+                        onClick={() => handleDelete(product.id)}
+                        type="button"
+                        className="btn btn-success mx-2 btn-sm btn-rounded"
+                      >
+                        Delete
+                      </button>
+                      <NavLink to={`${product.id}`}>
+                        <button
+                          type="button"
+                          className="btn btn-success mx-2 btn-sm btn-rounded"
+                        >
+                          Update
+                        </button>
+                      </NavLink>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
+          </table>
+        )}
+
+        <ProductModal />
       </div>
-
-      <div className={`${styles["product-section"]}`}>
-        {products.map((product) => (
-          <Card className={`${styles["product-card"]}`} key={product.id}>
-            <Card.Body>
-              <Card.Title className="text-center">
-                {product.productName}
-              </Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                Quantity : {product.quantity}
-              </Card.Subtitle>
-              <Card.Subtitle className="mb-2 text-muted">
-                Entry Price : {product.entryPrice}
-              </Card.Subtitle>
-              <Card.Subtitle className="mb-2 text-muted">
-                Entry Date : {product.entryDate}
-              </Card.Subtitle>
-
-              <div className="container">
-                <Card.Link className={`row ${styles["product-buttons"]}`}>
-                  <Button
-                    onClick={() => handleDelete(product.id)}
-                    variant="outline-success"
-                    className="col-12 col-md-6"
-                  >
-                    Delete
-                  </Button>
-
-                  <NavLink to={`${product.id}`} className="col-12 col-md-6">
-                    <Button variant="outline-success">Update</Button>
-                  </NavLink>
-                </Card.Link>
-              </div>
-            </Card.Body>
-          </Card>
-        ))}
-      </div>
-      <ProductModal />
-    </div>
-  );
+    );
 };
 
 export default Product;

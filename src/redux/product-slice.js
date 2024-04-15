@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { products: [], productById: {}, showProductModal: false };
+const initialState = {
+  products: [],
+  productById: {},
+  showProductModal: false,
+  isProductLoading: false,
+  isProductError: false,
+};
 
 const productSlice = createSlice({
   name: "product",
@@ -32,6 +38,14 @@ const productSlice = createSlice({
 
     toggleHideProductModal: (state) => {
       state.showProductModal = false;
+    },
+
+    toggleIsLoading: (state, action) => {
+      state.isProductLoading = action.payload;
+    },
+
+    toggleIsError: (state, action) => {
+      state.isProductError = action.payload;
     },
   },
 });

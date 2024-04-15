@@ -1,12 +1,16 @@
 import { storehouseActions } from "../storehouse-slice";
 
 export const fetchAllStorehouses = async (dispatch) => {
+  dispatch(storehouseActions.toggleIsLoading(true));
   try {
     const response = await fetch("http://localhost:8080/storehouses");
     const result = await response.json();
     dispatch(storehouseActions.getAllStorehouses(result));
+    dispatch(storehouseActions.toggleIsLoading(false));
+    dispatch(storehouseActions.toggleIsError(false));
   } catch (error) {
-    console.log(error);
+    dispatch(storehouseActions.toggleIsLoading(false));
+    dispatch(storehouseActions.toggleIsError(true));
   }
 };
 

@@ -4,6 +4,8 @@ const initialState = {
   storehouses: [],
   singleStorehouse: {},
   showStorehouseModal: false,
+  isStorehouseLoading: false,
+  isStorehouseError: false,
 };
 
 const storehouseSlice = createSlice({
@@ -34,6 +36,14 @@ const storehouseSlice = createSlice({
     },
     toggleHideStorehouseModal: (state) => {
       state.showStorehouseModal = false;
+    },
+
+    toggleIsLoading: (state, action) => {
+      state.isStorehouseLoading = action.payload;
+    },
+
+    toggleIsError: (state, action) => {
+      state.isStorehouseError = action.payload;
     },
   },
 });
