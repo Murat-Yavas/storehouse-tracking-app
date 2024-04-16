@@ -7,6 +7,12 @@ import styles from "./MainNavigation.module.css";
 import { NavLink } from "react-router-dom";
 
 const MainNavigation = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("tokenKey");
+    localStorage.removeItem("currentUser");
+    window.location.reload();
+  };
+
   return (
     <Navbar
       collapseOnSelect
@@ -31,9 +37,15 @@ const MainNavigation = () => {
             </div>
             <div>
               <Nav.Link className={` ${styles["nav-link-element"]}`}>
-                <NavLink className={`${styles.text}`} to="/auth">
-                  Login/Signup
-                </NavLink>
+                {localStorage.getItem("currentUser") === null ? (
+                  <NavLink className={`${styles.text}`} to="/auth">
+                    Login/Signup
+                  </NavLink>
+                ) : (
+                  <p className="m-0" onClick={handleLogout}>
+                    Logout
+                  </p>
+                )}
               </Nav.Link>
             </div>
           </Nav>

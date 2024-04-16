@@ -10,16 +10,9 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const handleRegister = () => {
+  const handleAuthButton = (path) => {
     const userInfo = { userName: username, password };
-    sendAuthRequest(dispatch, userInfo, "register");
-    setUsername("");
-    setPassword("");
-  };
-
-  const handleLogin = () => {
-    const userInfo = { userName: username, password };
-    sendAuthRequest(dispatch, userInfo, "login");
+    sendAuthRequest(dispatch, userInfo, path);
     setUsername("");
     setPassword("");
   };
@@ -29,6 +22,7 @@ const Auth = () => {
       <Form.Group className="mb-3" controlId="formBasicUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
           type="username"
           placeholder="Enter username"
@@ -38,6 +32,7 @@ const Auth = () => {
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Password"
@@ -46,9 +41,9 @@ const Auth = () => {
 
       <div className={`${styles["auth-buttons"]}`}>
         <Button
-          onClick={() => handleRegister()}
+          onClick={() => handleAuthButton("register")}
           variant="success"
-          type="submit"
+          type="button"
           className="mb-5"
         >
           Register
@@ -57,7 +52,11 @@ const Auth = () => {
         <Form.Text className={`${styles["register-section"]}`}>
           Are you already registered?
         </Form.Text>
-        <Button onClick={() => handleLogin()} variant="success" type="submit">
+        <Button
+          onClick={() => handleAuthButton("login")}
+          variant="success"
+          type="button"
+        >
           Login
         </Button>
       </div>

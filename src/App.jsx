@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 import Root from "./pages/Root";
 import HomePage from "./pages/HomePage";
@@ -15,7 +19,16 @@ function App() {
       element: <Root />,
       children: [
         { index: true, element: <HomePage /> },
-        { path: "/auth", element: <AuthPage /> },
+
+        {
+          path: "/auth",
+          element:
+            localStorage.getItem("currentUser") !== null ? (
+              <Navigate to="/" />
+            ) : (
+              <AuthPage />
+            ),
+        },
         { path: "/storehouses", element: <StorehousePage /> },
         { path: "/storehouses/:storehouseId", element: <StorehouseFormPage /> },
         { path: "/storehouses/:id/products", element: <ProductPage /> },
