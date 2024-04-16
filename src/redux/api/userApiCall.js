@@ -1,7 +1,6 @@
 import { userActions } from "../user-slice";
 
 export const sendAuthRequest = async (dispatch, body, path) => {
-  console.log("giris");
   try {
     const response = await fetch(`http://localhost:8080/auth/${path}`, {
       method: "POST",
@@ -11,10 +10,13 @@ export const sendAuthRequest = async (dispatch, body, path) => {
       body: JSON.stringify(body),
     });
     const result = await response.json();
+    console.log(result);
     const resultItem = [
       localStorage.setItem("tokenKey", result.message),
       localStorage.setItem("currentUser", result.userId),
+      localStorage.setItem("userName", result.userName),
     ];
+    dispatch(userActions.saveUser(result));
   } catch (error) {
     console.log(error);
   }

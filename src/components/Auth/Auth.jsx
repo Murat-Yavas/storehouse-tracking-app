@@ -4,17 +4,21 @@ import styles from "./Auth.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { sendAuthRequest } from "../../redux/api/userApiCall";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAuthButton = (path) => {
     const userInfo = { userName: username, password };
     sendAuthRequest(dispatch, userInfo, path);
     setUsername("");
     setPassword("");
+
+    if (path === "login") navigate("/");
   };
 
   return (

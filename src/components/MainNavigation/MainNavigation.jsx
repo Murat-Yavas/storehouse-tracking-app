@@ -1,15 +1,17 @@
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import styles from "./MainNavigation.module.css";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MainNavigation = () => {
+  const { userInfo } = useSelector((state) => state.user);
+
   const handleLogout = () => {
     localStorage.removeItem("tokenKey");
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("userName");
     window.location.reload();
   };
 
