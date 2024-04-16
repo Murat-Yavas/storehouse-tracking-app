@@ -1,6 +1,7 @@
 import { userActions } from "../user-slice";
 
 export const sendAuthRequest = async (dispatch, body, path) => {
+  console.log("giris");
   try {
     const response = await fetch(`http://localhost:8080/auth/${path}`, {
       method: "POST",

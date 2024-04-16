@@ -4,7 +4,14 @@ export const fetchProductsByStorehouse = async (dispatch, id) => {
   dispatch(productActions.toggleIsLoading(true));
   try {
     const response = await fetch(
-      `http://localhost:8080/products/storehouse/${id}`
+      `http://localhost:8080/products/storehouse/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("tokenKey"),
+        },
+      }
     );
     const result = await response.json();
     dispatch(productActions.getProductsByStorehouse(result));
@@ -18,7 +25,13 @@ export const fetchProductsByStorehouse = async (dispatch, id) => {
 
 export const fetchOneProduct = async (dispatch, id) => {
   try {
-    const response = await fetch(`http://localhost:8080/products/${id}`);
+    const response = await fetch(`http://localhost:8080/products/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("tokenKey"),
+      },
+    });
     const result = await response.json();
     dispatch(productActions.getOneProduct(result));
   } catch (error) {
@@ -32,6 +45,7 @@ export const updateOneProduct = async (id, body) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("tokenKey"),
       },
       body: JSON.stringify(body),
     });
@@ -46,6 +60,7 @@ export const addOneProduct = async (dispatch, body) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("tokenKey"),
       },
       body: JSON.stringify(body),
     });
@@ -60,6 +75,10 @@ export const deleteOneProduct = async (dispatch, id) => {
   try {
     const response = await fetch(`http://localhost:8080/products/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("tokenKey"),
+      },
     });
 
     dispatch(productActions.removeOneProduct(id));

@@ -29,6 +29,10 @@ const Storehouse = () => {
     dispatch(storehouseActions.toggleShowStorehouseModal());
   };
 
+  const foundStorehouses = storehouses.filter(
+    (house) => house.userId === +localStorage.getItem("currentUser")
+  );
+
   if (isStorehouseError) return <div>Something went wrong!</div>;
   else if (isStorehouseLoading) return <div>Loading...</div>;
   else
@@ -41,11 +45,11 @@ const Storehouse = () => {
             Add Storehouse
           </Button>
         </div>
-        {storehouses.length === 0 ? (
+        {foundStorehouses.length === 0 ? (
           <h1 className="mt-4 text-center">No storehouses yet</h1>
         ) : (
           <div className={`row mt-2  ${styles["storehouse-section"]}`}>
-            {storehouses.map((house) => (
+            {foundStorehouses.map((house) => (
               <Card
                 className={`col-12 col-md-6 col-xl-4  ${styles["storehouse-card"]}`}
                 key={house.id}

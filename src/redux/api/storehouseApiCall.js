@@ -3,7 +3,13 @@ import { storehouseActions } from "../storehouse-slice";
 export const fetchAllStorehouses = async (dispatch) => {
   dispatch(storehouseActions.toggleIsLoading(true));
   try {
-    const response = await fetch("http://localhost:8080/storehouses");
+    const response = await fetch("http://localhost:8080/storehouses", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("tokenKey"),
+      },
+    });
     const result = await response.json();
     dispatch(storehouseActions.getAllStorehouses(result));
     dispatch(storehouseActions.toggleIsLoading(false));
@@ -17,7 +23,14 @@ export const fetchAllStorehouses = async (dispatch) => {
 export const fetchOneStorehouse = async (dispatch, storehouseId) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/storehouses/${storehouseId}`
+      `http://localhost:8080/storehouses/${storehouseId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("tokenKey"),
+        },
+      }
     );
     const result = await response.json();
     dispatch(storehouseActions.getOneStorehouse(result));
@@ -34,6 +47,7 @@ export const updateOneStorehouse = async (storehouseId, body) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("tokenKey"),
         },
         body: JSON.stringify(body),
       }
@@ -49,6 +63,7 @@ export const addOneStorehouse = async (dispatch, body) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("tokenKey"),
       },
       body: JSON.stringify(body),
     });
@@ -65,6 +80,9 @@ export const deleteOneStorehouse = async (dispatch, storehouseId) => {
       `http://localhost:8080/storehouses/${storehouseId}`,
       {
         method: "DELETE",
+        headers: {
+          Authorization: localStorage.getItem("tokenKey"),
+        },
       }
     );
     dispatch(storehouseActions.removeOneStorehouse(storehouseId));
