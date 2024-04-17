@@ -18,6 +18,7 @@ const ProductForm = ({ products, productById }) => {
   const [productName, setProductName] = useState(productById?.productName);
   const [quantity, setQuantity] = useState(productById?.quantity);
   const [entryPrice, setEntryPrice] = useState(productById?.entryPrice);
+  const [emptyInputMessage, setEmptyInputMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -34,14 +35,19 @@ const ProductForm = ({ products, productById }) => {
   }, [productById]);
 
   const handleUpdate = (id) => {
-    const newProduct = {
-      ...productToUpdate[0],
-      productName,
-      quantity,
-      entryPrice,
-    };
-    updateOneProduct(id, { ...newProduct, storehouseId: +param.id });
-    navigate(`/storehouses/${param.id}/products`);
+    if (productName === "" || entryPrice === "" || quantity === "")
+      setEmptyInputMessage("Inputs cannot be left blank");
+    else {
+      const newProduct = {
+        ...productToUpdate[0],
+        productName,
+        quantity,
+        entryPrice,
+      };
+      updateOneProduct(id, { ...newProduct, storehouseId: +param.id });
+      setEmptyInputMessage("");
+      navigate(`/storehouses/${param.id}/products`);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -50,6 +56,7 @@ const ProductForm = ({ products, productById }) => {
 
   return (
     <Form className={`${styles["product-form"]}`} onSubmit={handleSubmit}>
+      <div className="text-danger">{emptyInputMessage}</div>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Product Name</Form.Label>
         <Form.Control

@@ -11,6 +11,7 @@ const StoreHouseModal = () => {
   const [storageCapacity, setStorageCapacity] = useState("");
   const [address, setAddress] = useState("");
   const [sameStorehouseMessage, setSameStorehouseMessage] = useState("");
+  const [emptyInputMessage, setEmptyInputMessage] = useState("");
   const dispatch = useDispatch();
   const { showStorehouseModal, storehouses } = useSelector(
     (state) => state.storehouse
@@ -25,22 +26,29 @@ const StoreHouseModal = () => {
       (house) => house.name.toLowerCase() === name.toLowerCase()
     );
     if (sameStorehouse.length === 0) {
-      const storehouseInfo = {
-        name,
-        storageCapacity,
-        address,
-        userId: +localStorage.getItem("currentUser"),
-      };
-      addOneStorehouse(dispatch, storehouseInfo);
-      dispatch(storehouseActions.toggleHideStorehouseModal());
-      setSameStorehouseMessage("");
-    } else
+      if (name === "" || storageCapacity === "" || address === "") {
+        setEmptyInputMessage("Inputs cannot be left blank");
+      } else {
+        const storehouseInfo = {
+          name,
+          storageCapacity,
+          address,
+          userId: +localStorage.getItem("currentUser"),
+        };
+        addOneStorehouse(dispatch, storehouseInfo);
+        dispatch(storehouseActions.toggleHideStorehouseModal());
+        setSameStorehouseMessage("");
+        setEmptyInputMessage("");
+      }
+    } else {
       setSameStorehouseMessage(`${sameStorehouse[0].name} is already in use`);
+    }
   };
 
   const handleCloseModal = () => {
     dispatch(storehouseActions.toggleHideStorehouseModal());
     setSameStorehouseMessage("");
+    setEmptyInputMessage("");
   };
 
   return (
@@ -53,10 +61,11 @@ const StoreHouseModal = () => {
           show={showStorehouseModal}
           onHide={() => handleCloseModal()}
         >
-          <Modal.Header closeButton>
+          <Modal.Header className="d-flex flex-column" closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
               Create a new storehouse
             </Modal.Title>
+            <div className="text-danger">{emptyInputMessage}</div>
           </Modal.Header>
           <Modal.Body>
             <Form>

@@ -9,21 +9,26 @@ const ProductModal = () => {
   const [productName, setProductName] = useState("");
   const [entryPrice, setEntryPrice] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [emptyInputMessage, setEmptyInputMessage] = useState("");
   const { showProductModal } = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
   const param = useParams();
 
   const handleCreate = () => {
-    const newProduct = {
-      entryPrice,
-      quantity,
-      productName,
-      storehouseId: param.id,
-    };
-
-    addOneProduct(dispatch, newProduct);
-    dispatch(productActions.toggleHideProductModal());
+    if (productName === "" || entryPrice === "" || quantity === "")
+      setEmptyInputMessage("Inputs cannot be left blank");
+    else {
+      const newProduct = {
+        entryPrice,
+        quantity,
+        productName,
+        storehouseId: param.id,
+      };
+      setEmptyInputMessage("");
+      addOneProduct(dispatch, newProduct);
+      dispatch(productActions.toggleHideProductModal());
+    }
   };
 
   return (
@@ -36,10 +41,11 @@ const ProductModal = () => {
           show={showProductModal}
           onHide={() => dispatch(productActions.toggleHideProductModal())}
         >
-          <Modal.Header closeButton>
+          <Modal.Header className="d-flex flex-column" closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
               Create a new product
             </Modal.Title>
+            <div className="text-danger">{emptyInputMessage}</div>
           </Modal.Header>
           <Modal.Body>
             <Form>

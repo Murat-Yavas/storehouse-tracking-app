@@ -23,6 +23,7 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
   const [capacity, setCapacity] = useState(
     storehouseToUpdate[0]?.storageCapacity
   );
+  const [emptyInputMessage, setEmptyInputMessage] = useState("");
 
   useEffect(() => {
     if (!storehouseToUpdate[0]) {
@@ -39,15 +40,19 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
   }, [singleStorehouse]);
 
   const handleUpdate = (storehouseId) => {
-    const newStorehouse = {
-      ...storehouseToUpdate[0],
-      name,
-      address,
-      storageCapacity: +capacity,
-    };
-    updateOneStorehouse(dispatch, storehouseId, newStorehouse);
-
-    navigate("/storehouses");
+    if (name === "" || address === "" || capacity === "")
+      setEmptyInputMessage("Inputs cannot be left blank");
+    else {
+      const newStorehouse = {
+        ...storehouseToUpdate[0],
+        name,
+        address,
+        storageCapacity: +capacity,
+      };
+      updateOneStorehouse(dispatch, storehouseId, newStorehouse);
+      setEmptyInputMessage("");
+      navigate("/storehouses");
+    }
   };
 
   const handleSubmit = (e) => {
@@ -56,6 +61,7 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
 
   return (
     <Form className={`${styles["storehouse-form"]}`} onSubmit={handleSubmit}>
+      <div className="text-danger">{emptyInputMessage}</div>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Storehouse Name</Form.Label>
         <Form.Control
