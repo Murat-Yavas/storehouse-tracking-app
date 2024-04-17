@@ -68,7 +68,9 @@ export const addOneStorehouse = async (dispatch, body) => {
       body: JSON.stringify(body),
     });
     const result = await response.json();
-    dispatch(storehouseActions.createOneStorehouse(result));
+    dispatch(
+      storehouseActions.createOneStorehouse({ ...result, userId: body.userId })
+    );
   } catch (error) {
     console.log(error);
   }

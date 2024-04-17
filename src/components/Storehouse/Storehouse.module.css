@@ -34,6 +34,10 @@
   width: 15%;
 }
 
+.search-input {
+  width: 15% !important;
+}
+
 @media screen and (max-width: 768px) {
   .storehouse-section {
     flex-direction: column;
@@ -61,5 +65,8 @@
 
   .add-button {
     justify-content: center;
+  }
+  .search-input {
+    min-width: 25% !important;
   }
 }

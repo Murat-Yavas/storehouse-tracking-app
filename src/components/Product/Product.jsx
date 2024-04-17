@@ -36,6 +36,9 @@ const Product = () => {
   else
     return (
       <div>
+        <h2 className="text-center mt-2">
+          {products.length === 0 ? "" : products[0].storehouseName}
+        </h2>
         <div>
           <Button
             onClick={handleAddClick}
@@ -60,7 +63,7 @@ const Product = () => {
               </tr>
             </thead>
             {products.map((product) => (
-              <tbody key={product.id} className="text-center">
+              <tbody key={product.productName} className="text-center">
                 <tr>
                   <td>
                     <div className="d-flex align-items-center">

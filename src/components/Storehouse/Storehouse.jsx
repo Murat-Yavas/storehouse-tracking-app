@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import {
   deleteOneStorehouse,
   fetchAllStorehouses,
@@ -10,15 +10,18 @@ import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { storehouseActions } from "../../redux/storehouse-slice";
 import StorehouseModal from "./StorehouseModal";
+import Form from "react-bootstrap/Form";
 
-const Storehouse = () => {
-  const { storehouses, isStorehouseLoading, isStorehouseError } = useSelector(
-    (state) => state.storehouse
-  );
+const Storehouse = ({
+  storehouses,
+  isStorehouseLoading,
+  isStorehouseError,
+}) => {
   const dispatch = useDispatch();
+  const [userInput, setUserInput] = useState("");
 
   useEffect(() => {
-    fetchAllStorehouses(dispatch);
+    if (storehouses?.length === 0) fetchAllStorehouses(dispatch);
   }, [dispatch]);
 
   const handleDelete = (storehouseId) => {
@@ -29,9 +32,16 @@ const Storehouse = () => {
     dispatch(storehouseActions.toggleShowStorehouseModal());
   };
 
-  const foundStorehouses = storehouses.filter(
+  let foundStorehouses = storehouses.filter(
     (house) => house.userId === +localStorage.getItem("currentUser")
   );
+
+  let searchedStorehouses = foundStorehouses.filter((house) =>
+    house.name.toLowerCase().includes(userInput.toLowerCase().trim())
+  );
+
+  let allStorehouses =
+    userInput?.length > 0 ? searchedStorehouses : foundStorehouses;
 
   if (isStorehouseError) return <div>Something went wrong!</div>;
   else if (isStorehouseLoading) return <div>Loading...</div>;
@@ -39,17 +49,25 @@ const Storehouse = () => {
     return (
       <>
         <div
-          className={`my-3 d-flex justify-content-center justify-content-lg-start`}
+          className={`my-3 d-flex justify-content-between justify-content-lg-between`}
         >
-          <Button onClick={handleAddClick} variant="success">
+          <Button onClick={handleAddClick} variant="success" className="">
             Add Storehouse
           </Button>
+
+          <Form.Control
+            className={`${styles["search-input"]}`}
+            aria-label="Small"
+            aria-describedby="inputGroup-sizing-sm"
+            placeholder="Search Storehouse"
+            onChange={(e) => setUserInput(e.target.value)}
+          />
         </div>
-        {foundStorehouses.length === 0 ? (
+        {allStorehouses.length === 0 ? (
           <h1 className="mt-4 text-center">No storehouses yet</h1>
         ) : (
           <div className={`row mt-2  ${styles["storehouse-section"]}`}>
-            {foundStorehouses.map((house) => (
+            {allStorehouses.map((house) => (
               <Card
                 className={`col-12 col-md-6 col-xl-4  ${styles["storehouse-card"]}`}
                 key={house.id}
@@ -65,7 +83,7 @@ const Storehouse = () => {
                     Storage Capacity - {house.storageCapacity} piece
                   </Card.Text>
                   <Card.Text>
-                    In Use - {house?.product?.length || 0}/
+                    In Use - {house?.products?.length || 0}/
                     {house.storageCapacity} piece
                   </Card.Text>
 
@@ -104,4 +122,12 @@ const Storehouse = () => {
     );
 };
 
-export default Storehouse;
+const mapStateToProps = (state) => {
+  return {
+    storehouses: state.storehouse.storehouses,
+    isStorehouseLoading: state.storehouse.isStorehouseLoading,
+    isStorehouseError: state.storehouse.isStorehouseError,
+  };
+};
+
+export default connect(mapStateToProps)(Storehouse);

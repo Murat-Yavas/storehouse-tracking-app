@@ -10,13 +10,33 @@ const StoreHouseModal = () => {
   const [name, setName] = useState("");
   const [storageCapacity, setStorageCapacity] = useState("");
   const [address, setAddress] = useState("");
+  const [sameStorehouseMessage, setSameStorehouseMessage] = useState("");
   const dispatch = useDispatch();
-  const { showStorehouseModal } = useSelector((state) => state.storehouse);
+  const { showStorehouseModal, storehouses } = useSelector(
+    (state) => state.storehouse
+  );
+
+  let foundStorehouses = storehouses.filter(
+    (house) => house.userId === +localStorage.getItem("currentUser")
+  );
 
   const handleCreate = () => {
-    const storehouseInfo = { name, storageCapacity, address };
-    addOneStorehouse(dispatch, storehouseInfo);
-    dispatch(storehouseActions.toggleHideStorehouseModal());
+    const sameStorehouse = foundStorehouses.filter(
+      (house) => house.name.toLowerCase() === name.toLowerCase()
+    );
+    console.log(sameStorehouse);
+    if (sameStorehouse.length === 0) {
+      const storehouseInfo = {
+        name,
+        storageCapacity,
+        address,
+        userId: +localStorage.getItem("currentUser"),
+      };
+      addOneStorehouse(dispatch, storehouseInfo);
+      dispatch(storehouseActions.toggleHideStorehouseModal());
+      setSameStorehouseMessage("");
+    } else
+      setSameStorehouseMessage(`${sameStorehouse[0].name} is already in use`);
   };
 
   return (
@@ -43,6 +63,7 @@ const StoreHouseModal = () => {
                   type="text"
                   placeholder="Enter storehouse name"
                 />
+                <div className="text-danger">{sameStorehouseMessage}</div>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicStorageCapacity">

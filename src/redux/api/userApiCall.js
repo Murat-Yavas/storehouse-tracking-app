@@ -10,7 +10,7 @@ export const sendAuthRequest = async (dispatch, body, path) => {
       body: JSON.stringify(body),
     });
     const result = await response.json();
-    console.log(result);
+
     const resultItem = [
       localStorage.setItem("tokenKey", result.message),
       localStorage.setItem("currentUser", result.userId),
