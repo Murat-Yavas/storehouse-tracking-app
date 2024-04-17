@@ -31,6 +31,20 @@ const storehouseSlice = createSlice({
       state.storehouses.push(action.payload);
     },
 
+    editOneStorehouse: (state, action) => {
+      const newStorehouses = state.storehouses.map((house) =>
+        house.id === action.payload.id
+          ? {
+              ...house,
+              name: action.payload.name,
+              address: action.payload.address,
+              capacity: action.payload.storageCapacity,
+            }
+          : house
+      );
+      state.storehouses = newStorehouses;
+    },
+
     toggleShowStorehouseModal: (state) => {
       state.showStorehouseModal = true;
     },

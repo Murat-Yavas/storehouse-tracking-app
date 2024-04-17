@@ -39,7 +39,7 @@ export const fetchOneStorehouse = async (dispatch, storehouseId) => {
   }
 };
 
-export const updateOneStorehouse = async (storehouseId, body) => {
+export const updateOneStorehouse = async (dispatch, storehouseId, body) => {
   try {
     const response = await fetch(
       `http://localhost:8080/storehouses/${storehouseId}`,
@@ -52,6 +52,7 @@ export const updateOneStorehouse = async (storehouseId, body) => {
         body: JSON.stringify(body),
       }
     );
+    dispatch(storehouseActions.editOneStorehouse(body));
   } catch (error) {
     console.log(error);
   }

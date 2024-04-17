@@ -45,7 +45,7 @@ const StorehouseForm = ({ storehouses, singleStorehouse }) => {
       address,
       storageCapacity: +capacity,
     };
-    updateOneStorehouse(storehouseId, newStorehouse);
+    updateOneStorehouse(dispatch, storehouseId, newStorehouse);
 
     navigate("/storehouses");
   };
