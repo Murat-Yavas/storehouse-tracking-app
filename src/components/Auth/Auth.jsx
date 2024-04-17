@@ -50,7 +50,7 @@ const Auth = () => {
           type="button"
           className="mb-5"
         >
-          Register
+          Signup
         </Button>
 
         <Form.Text className={`${styles["register-section"]}`}>

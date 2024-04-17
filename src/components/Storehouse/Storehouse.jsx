@@ -17,6 +17,7 @@ const Storehouse = ({
   isStorehouseLoading,
   isStorehouseError,
 }) => {
+  const { userInfo } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState("");
 
@@ -42,6 +43,13 @@ const Storehouse = ({
 
   let allStorehouses =
     userInput?.length > 0 ? searchedStorehouses : foundStorehouses;
+
+  if (Object.keys(userInfo).length === 0)
+    return (
+      <div>
+        There is nothing to see. You can try logging in/signing up first.
+      </div>
+    );
 
   if (isStorehouseError) return <div>Something went wrong!</div>;
   else if (isStorehouseLoading) return <div>Loading...</div>;

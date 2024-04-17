@@ -25,9 +25,6 @@ const Home = () => {
             movements, latest buying and selling information, stock quantities,
             stock costs, and stock level information from a single screen.
           </div>
-          <button className={`${styles["app-info-button"]}`}>
-            Try for free
-          </button>
         </div>
         <img
           className={`col-12 col-md-6 ${styles["app-info-image"]}`}
