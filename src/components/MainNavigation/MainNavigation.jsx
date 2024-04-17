@@ -27,13 +27,13 @@ const MainNavigation = () => {
           <Nav className={`me-auto ${styles["nav-links"]}`}>
             <div className="d-flex">
               <Nav.Link className={`${styles["nav-link-element"]}`}>
-                <NavLink className={`${styles.text}`} to="/storehouses">
-                  Storehouses
+                <NavLink className={`${styles.text}`} to="/">
+                  Home
                 </NavLink>
               </Nav.Link>
               <Nav.Link className={`${styles["nav-link-element"]}`}>
-                <NavLink className={`${styles.text}`} to="/">
-                  Pricing
+                <NavLink className={`${styles.text}`} to="/storehouses">
+                  Storehouses
                 </NavLink>
               </Nav.Link>
             </div>

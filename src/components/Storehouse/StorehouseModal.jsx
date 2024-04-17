@@ -24,7 +24,6 @@ const StoreHouseModal = () => {
     const sameStorehouse = foundStorehouses.filter(
       (house) => house.name.toLowerCase() === name.toLowerCase()
     );
-    console.log(sameStorehouse);
     if (sameStorehouse.length === 0) {
       const storehouseInfo = {
         name,
@@ -39,6 +38,11 @@ const StoreHouseModal = () => {
       setSameStorehouseMessage(`${sameStorehouse[0].name} is already in use`);
   };
 
+  const handleCloseModal = () => {
+    dispatch(storehouseActions.toggleHideStorehouseModal());
+    setSameStorehouseMessage("");
+  };
+
   return (
     <div>
       {showStorehouseModal ? (
@@ -47,7 +51,7 @@ const StoreHouseModal = () => {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showStorehouseModal}
-          onHide={() => dispatch(storehouseActions.toggleHideStorehouseModal())}
+          onHide={() => handleCloseModal()}
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
@@ -89,12 +93,7 @@ const StoreHouseModal = () => {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="success"
-              onClick={() =>
-                dispatch(storehouseActions.toggleHideStorehouseModal())
-              }
-            >
+            <Button variant="success" onClick={() => handleCloseModal()}>
               Close
             </Button>
           </Modal.Footer>
