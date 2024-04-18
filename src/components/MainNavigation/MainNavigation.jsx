@@ -3,13 +3,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import styles from "./MainNavigation.module.css";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const MainNavigation = () => {
   const handleLogout = () => {
     localStorage.removeItem("tokenKey");
     localStorage.removeItem("currentUser");
-    // localStorage.removeItem("refreshKey");
     localStorage.removeItem("userName");
     window.location.reload();
   };
