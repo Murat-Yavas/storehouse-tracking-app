@@ -1,3 +1,19 @@
+An application that allows you to track the information in your storehouses in detail. Check it out [here](https://storehouse-tracking-app.vercel.app/).
+
+# Technologies
+
+- [React.js](https://react.dev/)
+- [Redux](https://redux.js.org/)
+- [Bootstrap](https://react-bootstrap.netlify.app/)
+
+# Install
+
+To run this project, follow below!
+
+> $ npm install
+>
+> $ npm run dev
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -16,12 +16,9 @@ const Storehouse = () => {
   const { storehouses, isStorehouseLoading, isStorehouseError } = useSelector(
     (state) => state.storehouse
   );
-  const { products } = useSelector((state) => state.product);
+
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState("");
-
-  // console.log(storehouses);
-  // console.log(products);
 
   useEffect(() => {
     if (storehouses?.length === 0) fetchAllStorehouses(dispatch);

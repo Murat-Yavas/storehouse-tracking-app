@@ -3,8 +3,9 @@ import { productActions } from "../../redux/product-slice";
 import { Button, Form, Modal } from "react-bootstrap";
 import { addOneProduct } from "../../redux/api/productApiCall";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storehouseActions } from "../../redux/storehouse-slice";
+import { fetchAllStorehouses } from "../../redux/api/storehouseApiCall";
 
 const ProductModal = () => {
   const [productName, setProductName] = useState("");
@@ -16,10 +17,12 @@ const ProductModal = () => {
   const dispatch = useDispatch();
 
   const param = useParams();
+  useEffect(() => {
+    if (storehouses?.length === 0) fetchAllStorehouses(dispatch);
+  }, [dispatch]);
 
   const handleCreate = () => {
     const foundStorehouse = storehouses.find((house) => house.id === +param.id);
-    console.log(foundStorehouse);
 
     if (productName === "" || entryPrice === "" || quantity === "")
       setEmptyInputMessage("Inputs cannot be left blank");
@@ -36,15 +39,18 @@ const ProductModal = () => {
         ...foundStorehouse,
         products: [...foundStorehouse.products, newProduct],
       };
-      console.log(newStorehouse);
       let newStorehouses = storehouses.map((house) =>
         house.id == param.id ? newStorehouse : house
       );
-      console.log(newStorehouses);
       dispatch(storehouseActions.updateStorehouse(newStorehouses));
       addOneProduct(dispatch, newProduct);
       dispatch(productActions.toggleHideProductModal());
     }
+  };
+
+  const handleCloseModal = () => {
+    dispatch(productActions.toggleHideProductModal());
+    setEmptyInputMessage("");
   };
 
   return (
@@ -55,7 +61,7 @@ const ProductModal = () => {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showProductModal}
-          onHide={() => dispatch(productActions.toggleHideProductModal())}
+          onHide={() => handleCloseModal()}
         >
           <Modal.Header className="d-flex flex-column" closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
@@ -97,10 +103,7 @@ const ProductModal = () => {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="success"
-              onClick={() => dispatch(productActions.toggleHideProductModal())}
-            >
+            <Button variant="success" onClick={() => handleCloseModal()}>
               Close
             </Button>
           </Modal.Footer>
