@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { sendAuthRequest } from "../../redux/api/userApiCall";
 import { useNavigate } from "react-router-dom";
+import { userActions } from "../../redux/user-slice";
 
 const Auth = () => {
   const [username, setUsername] = useState("");
@@ -18,7 +19,10 @@ const Auth = () => {
     setUsername("");
     setPassword("");
 
-    if (path === "login") navigate("/");
+    if (path === "login") {
+      // dispatch(userActions.changeLoginState(true));
+      navigate("/");
+    }
   };
 
   return (
