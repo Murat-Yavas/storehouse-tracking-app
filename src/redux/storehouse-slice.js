@@ -38,7 +38,7 @@ const storehouseSlice = createSlice({
               ...house,
               name: action.payload.name,
               address: action.payload.address,
-              capacity: action.payload.storageCapacity,
+              storageCapacity: action.payload.storageCapacity,
             }
           : house
       );
@@ -58,6 +58,10 @@ const storehouseSlice = createSlice({
 
     toggleIsError: (state, action) => {
       state.isStorehouseError = action.payload;
+    },
+
+    updateStorehouse: (state, action) => {
+      state.storehouses = action.payload;
     },
   },
 });

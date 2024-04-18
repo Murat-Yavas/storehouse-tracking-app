@@ -4,6 +4,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { addOneProduct } from "../../redux/api/productApiCall";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { storehouseActions } from "../../redux/storehouse-slice";
 
 const ProductModal = () => {
   const [productName, setProductName] = useState("");
@@ -11,11 +12,15 @@ const ProductModal = () => {
   const [quantity, setQuantity] = useState("");
   const [emptyInputMessage, setEmptyInputMessage] = useState("");
   const { showProductModal } = useSelector((state) => state.product);
+  const { storehouses } = useSelector((state) => state.storehouse);
   const dispatch = useDispatch();
 
   const param = useParams();
 
   const handleCreate = () => {
+    const foundStorehouse = storehouses.find((house) => house.id === +param.id);
+    console.log(foundStorehouse);
+
     if (productName === "" || entryPrice === "" || quantity === "")
       setEmptyInputMessage("Inputs cannot be left blank");
     else {
@@ -26,6 +31,17 @@ const ProductModal = () => {
         storehouseId: param.id,
       };
       setEmptyInputMessage("");
+
+      const newStorehouse = {
+        ...foundStorehouse,
+        products: [...foundStorehouse.products, newProduct],
+      };
+      console.log(newStorehouse);
+      let newStorehouses = storehouses.map((house) =>
+        house.id == param.id ? newStorehouse : house
+      );
+      console.log(newStorehouses);
+      dispatch(storehouseActions.updateStorehouse(newStorehouses));
       addOneProduct(dispatch, newProduct);
       dispatch(productActions.toggleHideProductModal());
     }

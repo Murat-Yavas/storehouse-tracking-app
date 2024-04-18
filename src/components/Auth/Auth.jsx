@@ -45,23 +45,23 @@ const Auth = () => {
 
       <div className={`${styles["auth-buttons"]}`}>
         <Button
-          onClick={() => handleAuthButton("register")}
+          onClick={() => handleAuthButton("login")}
           variant="success"
           type="button"
           className="mb-5"
         >
-          Signup
+          Login
         </Button>
 
         <Form.Text className={`${styles["register-section"]}`}>
-          Are you already registered?
+          Not registered yet?
         </Form.Text>
         <Button
-          onClick={() => handleAuthButton("login")}
+          onClick={() => handleAuthButton("register")}
           variant="success"
           type="button"
         >
-          Login
+          Signup
         </Button>
       </div>
     </Form>

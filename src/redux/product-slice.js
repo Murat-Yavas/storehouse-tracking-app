@@ -24,7 +24,7 @@ const productSlice = createSlice({
       const newProducts = state.products.filter(
         (product) => product.id !== action.payload
       );
-      console.log(newProducts);
+
       state.products = newProducts;
     },
 

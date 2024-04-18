@@ -6,11 +6,10 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const MainNavigation = () => {
-  const { userInfo } = useSelector((state) => state.user);
-
   const handleLogout = () => {
     localStorage.removeItem("tokenKey");
     localStorage.removeItem("currentUser");
+    // localStorage.removeItem("refreshKey");
     localStorage.removeItem("userName");
     window.location.reload();
   };

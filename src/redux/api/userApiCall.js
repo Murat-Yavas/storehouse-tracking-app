@@ -12,7 +12,8 @@ export const sendAuthRequest = async (dispatch, body, path) => {
     const result = await response.json();
 
     const resultItem = [
-      localStorage.setItem("tokenKey", result.message),
+      localStorage.setItem("tokenKey", result.accessToken),
+      // localStorage.setItem("refreshKey", result.refreshToken),
       localStorage.setItem("currentUser", result.userId),
       localStorage.setItem("userName", result.userName),
     ];
@@ -21,3 +22,21 @@ export const sendAuthRequest = async (dispatch, body, path) => {
     console.log(error);
   }
 };
+
+// export const refreshToken = () => {
+//   try {
+//     const response = fetch("http://localhost:8080/auth/refresh", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         userId: localStorage.getItem("currentUser"),
+//         refreshToken: localStorage.getItem("refreshKey"),
+//       }),
+//     });
+//     return response;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

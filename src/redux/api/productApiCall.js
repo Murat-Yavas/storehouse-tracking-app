@@ -1,4 +1,5 @@
 import { productActions } from "../product-slice";
+import { storehouseActions } from "../storehouse-slice";
 
 export const fetchProductsByStorehouse = async (dispatch, id) => {
   dispatch(productActions.toggleIsLoading(true));
@@ -71,7 +72,7 @@ export const addOneProduct = async (dispatch, body) => {
   }
 };
 
-export const deleteOneProduct = async (dispatch, id) => {
+export const deleteOneProduct = async (dispatch, id, newStorehouses) => {
   try {
     const response = await fetch(`http://localhost:8080/products/${id}`, {
       method: "DELETE",
@@ -82,6 +83,7 @@ export const deleteOneProduct = async (dispatch, id) => {
     });
 
     dispatch(productActions.removeOneProduct(id));
+    dispatch(storehouseActions.updateStorehouse(newStorehouses));
   } catch (error) {
     console.log(error);
   }

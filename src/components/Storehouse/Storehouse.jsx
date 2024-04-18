@@ -12,14 +12,16 @@ import { storehouseActions } from "../../redux/storehouse-slice";
 import StorehouseModal from "./StorehouseModal";
 import Form from "react-bootstrap/Form";
 
-const Storehouse = ({
-  storehouses,
-  isStorehouseLoading,
-  isStorehouseError,
-}) => {
-  const { userInfo } = useSelector((state) => state.user);
+const Storehouse = () => {
+  const { storehouses, isStorehouseLoading, isStorehouseError } = useSelector(
+    (state) => state.storehouse
+  );
+  const { products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState("");
+
+  // console.log(storehouses);
+  // console.log(products);
 
   useEffect(() => {
     if (storehouses?.length === 0) fetchAllStorehouses(dispatch);
@@ -44,7 +46,7 @@ const Storehouse = ({
   let allStorehouses =
     userInput?.length > 0 ? searchedStorehouses : foundStorehouses;
 
-  if (Object.keys(userInfo).length === 0)
+  if (localStorage.getItem("currentUser") === null)
     return (
       <div>
         There is nothing to see. You can try logging in/signing up first.
@@ -88,11 +90,17 @@ const Storehouse = ({
                     Location - {house.address}
                   </Card.Subtitle>
                   <Card.Text>
-                    Storage Capacity - {house.storageCapacity} piece
+                    Storage Capacity - {house.storageCapacity} pieces
                   </Card.Text>
-                  <Card.Text>
-                    In Use - {house?.products?.length || 0}/
-                    {house.storageCapacity} piece
+                  <Card.Text
+                    className={
+                      house?.products?.length >= house.storageCapacity
+                        ? "text-danger"
+                        : null
+                    }
+                  >
+                    In Use - {house?.products?.length}/{house.storageCapacity}{" "}
+                    piece
                   </Card.Text>
 
                   <div className="container">
@@ -111,7 +119,6 @@ const Storehouse = ({
                       >
                         Update
                       </NavLink>
-
                       <NavLink
                         className="btn btn-outline-success px-3"
                         to={`/storehouses/${house.id}/products`}
@@ -130,12 +137,14 @@ const Storehouse = ({
     );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    storehouses: state.storehouse.storehouses,
-    isStorehouseLoading: state.storehouse.isStorehouseLoading,
-    isStorehouseError: state.storehouse.isStorehouseError,
-  };
-};
+export default Storehouse;
 
-export default connect(mapStateToProps)(Storehouse);
+// const mapStateToProps = (state) => {
+//   return {
+//     storehouses: state.storehouse.storehouses,
+//     isStorehouseLoading: state.storehouse.isStorehouseLoading,
+//     isStorehouseError: state.storehouse.isStorehouseError,
+//   };
+// };
+
+// export default connect(mapStateToProps)(Storehouse);

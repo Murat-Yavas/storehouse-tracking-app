@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { NavLink, useParams } from "react-router-dom";
-import Card from "react-bootstrap/Card";
 import styles from "./Product.module.css";
 import { useEffect } from "react";
 import { Button } from "react-bootstrap";
@@ -11,20 +10,39 @@ import {
 } from "../../redux/api/productApiCall";
 import { productActions } from "../../redux/product-slice";
 import ProductModal from "./ProductModal";
+import { fetchOneStorehouse } from "../../redux/api/storehouseApiCall";
 
 const Product = () => {
   const { products, isProductLoading, isProductError } = useSelector(
     (state) => state.product
   );
+  const { singleStorehouse, storehouses } = useSelector(
+    (state) => state.storehouse
+  );
   const dispatch = useDispatch();
   const param = useParams();
 
   useEffect(() => {
+    fetchOneStorehouse(dispatch, param.id);
+  }, [dispatch]);
+
+  useEffect(() => {
     fetchProductsByStorehouse(dispatch, param.id);
-  }, []);
+  }, [dispatch]);
 
   const handleDelete = (id) => {
-    deleteOneProduct(dispatch, id);
+    let storehouse = storehouses.find((house) => house.id == param.id);
+    let newProducts = {};
+    if (storehouse) {
+      newProducts = storehouse.products.filter((p) => p.id != id);
+    }
+
+    let newStorehouse = { ...storehouse, products: newProducts };
+    let newStorehouses = storehouses.map((house) =>
+      house.id == param.id ? newStorehouse : house
+    );
+
+    deleteOneProduct(dispatch, id, newStorehouses);
   };
 
   const handleAddClick = () => {
@@ -39,11 +57,13 @@ const Product = () => {
         <h2 className="text-center mt-2">
           {products.length === 0 ? "" : products[0].storehouseName}
         </h2>
+
         <div>
           <Button
             onClick={handleAddClick}
             className={`${styles["add-button"]}`}
             variant="success"
+            disabled={products.length >= singleStorehouse?.storageCapacity}
           >
             Add Product
           </Button>
