@@ -41,7 +41,7 @@ const MainNavigation = () => {
               Login/Signup
             </NavLink>
           ) : (
-            <p className="m-0" onClick={() => handleLogout()}>
+            <p className={`${styles.text}`} onClick={() => handleLogout()}>
               Logout
             </p>
           )}
@@ -65,7 +65,7 @@ const MainNavigation = () => {
             Login/Signup
           </NavLink>
         ) : (
-          <p className="m-0" onClick={() => handleLogout()}>
+          <p className={`${styles.text}`} onClick={() => handleLogout()}>
             Logout
           </p>
         )}

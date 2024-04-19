@@ -19,6 +19,7 @@
 
 .text:hover,
 .text:focus {
+  cursor: pointer;
   border-bottom: 3px solid green;
   transition: 0.1s;
 }
