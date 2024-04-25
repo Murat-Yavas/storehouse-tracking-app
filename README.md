@@ -13,6 +13,13 @@ To run this project, follow below!
 > $ npm install
 >
 > $ npm run dev
+>
+> ## Preview
+
+![preview](src/assets/1.PNG)
+![preview](src/assets/2.PNG)
+![preview](src/assets/4.PNG)
+![preview](src/assets/3.PNG)
 
 # React + Vite
 
